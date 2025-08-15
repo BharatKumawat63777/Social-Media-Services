@@ -5,8 +5,6 @@ const logger = require("../utils/logger");
 const uploadMedia = async (req, res) => {
   logger.info("Starting media upload");
   try {
-   
-
     if (!req.file) {
       logger.error("No file found. Please add a file and try again!");
       return res.status(400).json({
@@ -18,12 +16,11 @@ const uploadMedia = async (req, res) => {
     const { originalname, mimetype } = req.file;
 
     const userId = req.user.userId;
-  
+
     logger.info(`File details: name=${originalname}, type=${mimetype}`);
     logger.info("Uploading to cloudinary starting...");
 
     const cloudinaryUploadResult = await uploadMediaToCloudinary(req.file);
- 
 
     logger.info(
       `Cloudinary upload successfully. Public Id: - ${cloudinaryUploadResult.public_id}`
@@ -38,7 +35,6 @@ const uploadMedia = async (req, res) => {
     });
 
     await newlyCreatedMedia.save();
-   
 
     res.status(201).json({
       success: true,
@@ -57,7 +53,10 @@ const uploadMedia = async (req, res) => {
 
 const getAllMedias = async (req, res) => {
   try {
+    console.log("getAllMedias");
+
     const result = await Media.find({ userId: req.user.userId });
+    console.log("Result: ", result);
 
     if (result.length === 0) {
       return res.status(404).json({
@@ -65,6 +64,7 @@ const getAllMedias = async (req, res) => {
         message: "Cann't find any media for this user",
       });
     }
+    res.json({ result });
   } catch (e) {
     logger.error("Error fetching medias", error);
     res.status(500).json({
