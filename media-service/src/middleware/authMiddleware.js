@@ -1,7 +1,12 @@
 const logger = require("../utils/logger");
+const jwt = require("jsonwebtoken");
 
 const authenticateRequest = (req, res, next) => {
-  const userId = req.headers["x-user-id"];
+  const token = req.headers.authorization?.split(" ")[1]; // remove "Bearer "
+
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+  const userId = decoded.userId;
 
   if (!userId) {
     logger.warn("Access attempt without user Id");
@@ -12,6 +17,7 @@ const authenticateRequest = (req, res, next) => {
   }
 
   req.user = { userId };
+  logger.info("Authencation done");
   next();
 };
 

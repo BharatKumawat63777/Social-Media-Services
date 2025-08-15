@@ -10,7 +10,7 @@ const mediaSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    mineType: {
+    mimeType: {
       type: String,
       required: true,
     },

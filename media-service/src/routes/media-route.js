@@ -7,8 +7,10 @@ const {
 } = require("../controllers/media-controller");
 const { authenticateRequest } = require("../middleware/authMiddleware");
 const logger = require("../utils/logger");
+const { log } = require("winston");
 
 const router = express.Router();
+console.log(" start upload ");
 
 //configure multer for file upload
 const upload = multer({
