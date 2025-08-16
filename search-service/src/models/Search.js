@@ -10,14 +10,14 @@ const searchPostSchema = new mongoose.Schema(
     userId: {
       type: String,
       required: true,
-      unique: true,
+      index: true,
     },
     content: {
       type: String,
       required: true,
     },
-    createAt: {
-      type: Date(),
+    createdAt: {
+      type: Date,
       required: true,
     },
   },
@@ -25,7 +25,7 @@ const searchPostSchema = new mongoose.Schema(
 );
 
 searchPostSchema.index({ content: "text" });
-searchPostSchema.index({ createAt: -1 });
+searchPostSchema.index({ createdAt: -1 });
 
 const Search = mongoose.model("Search", searchPostSchema);
 module.exports = Search;
