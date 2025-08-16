@@ -1,4 +1,4 @@
-//use the official node.js 18 image with apline linux as the base image
+# use the official node.js 18 image with apline linux as the base image
 
 FROM node:18-alpine
 

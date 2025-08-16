@@ -154,6 +154,9 @@ app.listen(PORT, () => {
   logger.info(
     `Post service is running on port ${process.env.POST_SERVICE_URL}`
   );
+  logger.info(
+    `Media service is running on port ${process.env.MEDIA_SERVICE_URL}`
+  );
 
   logger.info(
     `Search service is running on port ${process.env.SEARCH_SERVICE_URL}`
