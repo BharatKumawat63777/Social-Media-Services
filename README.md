@@ -49,7 +49,7 @@ The application consists of the following services:
 ## 🛠️ Setup & Installation
 
 ### 1️⃣ Clone the repository
-```bash
+
 git clone https://github.com/BharatKumawat63777/Social-Media-Services.git
 cd Social-Media-Services
 
@@ -60,7 +60,7 @@ docker-compose up --build
 PORT=3000
 JWT_SECRET=your_jwt_secret
 MONGO_URI=mongodb://mongo:27017/identity
-REDIS_URL=redis://redis:6379
+REDIS_URL=redis://redis:6379 
 
 
 
