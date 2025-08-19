@@ -122,20 +122,19 @@ You can test all APIs using **Postman**.
 👉 Import the collection: [docs/postman_collection.json](docs/postman_collection.json)
 
 
-### 🔑 Login & Get Token
-![Login Screenshot](img/login.png)
+### 🔑 Login & Get Token 
+<img src="./img/login.png" alt="Login Screenshot" width="600"/>
 
-### 📝 All Post
-![All Post](img/all-post.png)
+### 📝 ALL Post 
+<img src="./img/all-post.png" alt="All Post" width="600"/> 
 
-### 📤 Upload Media
-![Upload Media](img/upload.png)
+### 📤 Upload Media 
+<img src="./img/upload.png" alt="Upload Media" width="600"/>
 
-### 🔍 Search
-![Search Screenshot](img/search.png)
-
-### ☁️ Running on AWS
-![AWS running Screenshot](img/ubanto.png)
-
+ ### 🔍 Search 
+ <img src="./img/search.png" alt="Search Screenshot" width="600"/> 
+ 
+ ### ☁️ Running on AWS 
+ <img src="./img/ubanto.png" alt="AWS running Screenshot" width="600"/> 
 
 
