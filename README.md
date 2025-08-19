@@ -17,7 +17,7 @@ The application consists of the following services:
 6. **Redis** – Used as a cache and message broker for services.  
 
 <p align="center">
-  <img src="./microservices.png" alt="Architecture Diagram" width="700"/>
+  <img src="./img/microservices.png" alt="Architecture Diagram" width="700"/>
 </p>
 
 ---
@@ -123,19 +123,19 @@ You can test all APIs using **Postman**.
 
 
 ### 🔑 Login & Get Token
-<img src="./img/login.png" alt="Login Screenshot" width="600"/>
+![Login Screenshot](img/login.png)
 
-### 📝 ALL Post
-<img src="./img/all-post.png" alt="All Post" width="600"/>
+### 📝 All Post
+![All Post](img/all-post.png)
 
 ### 📤 Upload Media
-<img src="./img/upload.png" alt="Upload Media" width="600"/>
+![Upload Media](img/upload.png)
 
 ### 🔍 Search
-<img src="./img/search.png" alt="Search Screenshot" width="600"/>
+![Search Screenshot](img/search.png)
 
 ### ☁️ Running on AWS
-<img src="./img/ubanto.png" alt="AWS running Screenshot" width="600"/>
+![AWS running Screenshot](img/ubanto.png)
 
 
 
