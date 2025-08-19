@@ -100,18 +100,18 @@ You can test all APIs using **Postman**.
 
 
 ### 🔑 Login & Get Token 
-<img src="./img/login.png" alt="Login Screenshot" width="600"/>
+<img src="./img/login.png" alt="Login Screenshot" width="700"/>
 
 ### 📝 ALL Post 
-<img src="./img/all-post.png" alt="All Post" width="600"/> 
+<img src="./img/all-post.png" alt="All Post" width="700"/> 
 
 ### 📤 Upload Media 
-<img src="./img/upload.png" alt="Upload Media" width="600"/>
+<img src="./img/upload.png" alt="Upload Media" width="700"/>
 
  ### 🔍 Search 
- <img src="./img/search.png" alt="Search Screenshot" width="600"/> 
+ <img src="./img/search.png" alt="Search Screenshot" width="700"/> 
  
  ### ☁️ Running on AWS 
- <img src="./img/ubanto.png" alt="AWS running Screenshot" width="600"/> 
+ <img src="./img/ubanto.png" alt="AWS running Screenshot" width="700"/> 
 
 
