@@ -93,29 +93,6 @@ The pipeline will:
 
 ---
 
-### ✅ Workflow Example
-
-A sample GitHub Actions workflow (`.github/workflows/deploy.yml`):
-
-```yaml
-name: Deploy to AWS
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-
-      - n
-
-
 ## 📸 Postman Testing with AWS
 
 You can test all APIs using **Postman**.  
