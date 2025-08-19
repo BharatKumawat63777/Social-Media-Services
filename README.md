@@ -62,6 +62,8 @@ JWT_SECRET=your_jwt_secret
 MONGO_URI=mongodb://mongo:27017/identity
 REDIS_URL=redis://redis:6379
 
+
+
 ## 📬 API Endpoints
 
 All requests go through the **API Gateway** (`http://localhost:3000`).
@@ -74,6 +76,7 @@ All requests go through the **API Gateway** (`http://localhost:3000`).
 | **Post**          | GET    | `/v1/posts/:id`          | Get a post by ID         |
 | **Media**         | POST   | `/v1/media/upload`       | Upload an image/video    |
 | **Search**        | GET    | `/v1/search?query=term`  | Search users or posts    |
+
 
 
 ## 🚀 Deploy via GitHub Actions (CI/CD)
@@ -118,23 +121,21 @@ jobs:
 You can test all APIs using **Postman**.  
 👉 Import the collection: [docs/postman_collection.json](docs/postman_collection.json)
 
-### ✅ User Registration
-<img src="docs/screenshots/register.png" alt="User Registration" width="600"/>
 
 ### 🔑 Login & Get Token
-<img src="./login.png" alt="Login Screenshot" width="600"/>
+<img src="./img/login.png" alt="Login Screenshot" width="600"/>
 
 ### 📝 ALL Post
-<img src="./all-post.png" alt="All Post" width="600"/>
+<img src="./img/all-post.png" alt="All Post" width="600"/>
 
 ### 📤 Upload Media
-<img src="./upload.png" alt="Upload Media" width="600"/>
+<img src="./img/upload.png" alt="Upload Media" width="600"/>
 
 ### 🔍 Search
-<img src="./search.png" alt="Search Screenshot" width="600"/>
+<img src="./img/search.png" alt="Search Screenshot" width="600"/>
 
 ### ☁️ Running on AWS
-<img src="./ubanto.png" alt="AWS running Screenshot" width="600"/>
+<img src="./img/ubanto.png" alt="AWS running Screenshot" width="600"/>
 
 
 
