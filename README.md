@@ -49,18 +49,26 @@ The application consists of the following services:
 ## 🛠️ Setup & Installation
 
 ### 1️⃣ Clone the repository
-
+```
 git clone https://github.com/BharatKumawat63777/Social-Media-Services.git
 cd Social-Media-Services
+```
 
 ### 2️⃣ Start services with Docker Compose
 docker-compose up --build
 
 ### 3️⃣ Environment Variables
+Create a `.env` file with the following values:
+
+```env
 PORT=3000
 JWT_SECRET=your_jwt_secret
 MONGO_URI=mongodb://mongo:27017/identity
 REDIS_URL=redis://redis:6379 
+```
+
+---
+
 
 
 
@@ -73,9 +81,11 @@ All requests go through the **API Gateway** (`http://localhost:3000`).
 | **Identity**      | POST   | `/v1/auth/register`      | Register a new user      |
 | **Identity**      | POST   | `/v1/auth/login`         | Login & get JWT token    |
 | **Post**          | POST   | `/v1/posts`              | Create a new post        |
+| **Post**          | GET    | `/v1/posts/all-posts`    | Create a new post        |
 | **Post**          | GET    | `/v1/posts/:id`          | Get a post by ID         |
+| **Post**          | DELETE | `/v1/posts/:id`          | Delete a post by ID      |
 | **Media**         | POST   | `/v1/media/upload`       | Upload an image/video    |
-| **Search**        | GET    | `/v1/search?query=term`  | Search users or posts    |
+| **Search**        | GET    | `/v1/search/posts?query=term`  | Search users or posts    |
 
 
 
