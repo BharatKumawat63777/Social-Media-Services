@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     environment: AWS_EC2_HOST
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -25,11 +25,12 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Build and push Docker images
+      - name: Build and push all services with Docker Compose
         run: |
-          IMAGE_URI=${{ steps.login-ecr.outputs.registry }}/social-media-services:latest
-          docker build -t $IMAGE_URI .
-          docker push $IMAGE_URI
+          export AWS_ACCOUNT_ID=${{ secrets.AWS_ACCOUNT_ID }}
+          export AWS_REGION=${{ secrets.AWS_REGION }}
+          docker-compose -f docker-compose.yml build
+          docker-compose -f docker-compose.yml push
 
   deploy:
     needs: build
