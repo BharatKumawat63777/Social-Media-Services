@@ -10,7 +10,6 @@ const authenticateRequest = (req, res, next) => {
       message: "Authencation required! Please login to continue",
     });
   }
-  console.log("UserId ", userId);
 
   req.user = { userId };
   next();

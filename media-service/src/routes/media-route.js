@@ -8,7 +8,6 @@ const {
 const { authenticateRequest } = require("../middleware/authMiddleware");
 const logger = require("../utils/logger");
 
-
 const router = express.Router();
 
 //configure multer for file upload
