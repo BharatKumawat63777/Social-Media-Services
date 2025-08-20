@@ -8,7 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    environment: AWS_EC2_HOST
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -33,6 +34,7 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    environment: AWS_EC2_HOST
 
     steps:
       - name: Checkout code
