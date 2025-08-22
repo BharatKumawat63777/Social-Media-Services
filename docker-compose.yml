@@ -13,6 +13,13 @@ services:
     environment:
       - REDIS_URL=redis://redis:6379
       - RABBITMQ_URL=amqp://rabbitmq:5672
+      - PORT= ${{ secrets.PORT0 }}
+      - NODE_ENV = ${{ secrets.NODE_ENV }}
+      - JWT_SECRET=${{ secrets.JWT_SECRET }}
+      - IDENTITY_SERVICE_URL = ${{ secrets.IDENTITY_SERVICE_URL }}
+      - POST_SERVICE_URL = ${{ secrets.POST_SERVICE_URL }}
+      - MEDIA_SERVICE_URL = ${{ secrets.MEDIA_SERVICE_URL }}
+      - SEARCH_SERVICE_URL = ${{ secrets.SEARCH_SERVICE_URL }}
 
   identity-service:
     build: ./identity-service
@@ -24,6 +31,10 @@ services:
     environment:
       - REDIS_URL=redis://redis:6379
       - RABBITMQ_URL=amqp://rabbitmq:5672
+      - PORT= ${{ secrets.PORT1 }}
+      - MONGODB_URI = ${{ secrets.MONGODB_URI }}
+      - NODE_ENV = ${{ secrets.NODE_ENV }}
+      - JWT_SECRET=${{ secrets.JWT_SECRET }}
 
   post-service:
     build: ./post-service
@@ -35,6 +46,10 @@ services:
     environment:
       - REDIS_URL=redis://redis:6379
       - RABBITMQ_URL=amqp://rabbitmq:5672
+      - PORT= ${{ secrets.PORT2 }}
+      - MONGODB_URI = ${{ secrets.MONGODB_URI }}
+      - NODE_ENV = ${{ secrets.NODE_ENV }}
+      - JWT_SECRET=${{ secrets.JWT_SECRET }}
 
   media-service:
     build: ./media-service
@@ -46,6 +61,13 @@ services:
     environment:
       - REDIS_URL=redis://redis:6379
       - RABBITMQ_URL=amqp://rabbitmq:5672
+      - PORT= ${{ secrets.PORT3 }}
+      - MONGODB_URI = ${{ secrets.MONGODB_URI }}
+      - NODE_ENV = ${{ secrets.NODE_ENV }}
+      - JWT_SECRET=${{ secrets.JWT_SECRET }}
+      - CLOUD_NAME =${{secrets.CLOUD_NAME}}
+      - CLOUD_API_KEY = ${{secrets.CLOUD_API_KEY}}
+      - CLOUD_API_SECRET= ${{secrets.CLOUD_API_SECRET}}
 
   search-service:
     build: ./search-service
@@ -57,7 +79,12 @@ services:
     environment:
       - REDIS_URL=redis://redis:6379
       - RABBITMQ_URL=amqp://rabbitmq:5672
+      - PORT= ${{ secrets.PORT4 }}
+      - MONGODB_URI = ${{ secrets.MONGODB_URI }}
+      - NODE_ENV = ${{ secrets.NODE_ENV }}
+      - JWT_SECRET=${{ secrets.JWT_SECRET }}
 
+ 
   redis:
     image: redis:alpine
     ports:
