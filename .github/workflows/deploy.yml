@@ -4,56 +4,66 @@ on:
   push:
     branches:
       - main
-
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    environment: AWS_EC2_HOST
 
     steps:
-      - name: Checkout code
+      
+      - name: Checkout repository
         uses: actions/checkout@v2
 
+      
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-central-1
+          aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Log in to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v2
-
-      - name: Build and push all services with Docker Compose
+     
+      - name: Login to Amazon ECR
         run: |
-          export AWS_ACCOUNT_ID=${{ secrets.AWS_ACCOUNT_ID }}
-          export AWS_REGION=${{ secrets.AWS_REGION }}
-          docker compose -f docker-compose.yml build
-          docker compose -f docker-compose.yml push
+          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} \
+          | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
 
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment: AWS_EC2_HOST
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Add EC2 SSH host key to known_hosts
+     
+      - name: Build and Push api-gateway
         run: |
-          mkdir -p ~/.ssh
-          ssh-keyscan -H ${{ secrets.AWS_EC2_HOST }} >> ~/.ssh/known_hosts
+          IMAGE_URI=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/api-gateway:latest
+          docker build -t $IMAGE_URI ./api-gateway
+          docker push $IMAGE_URI
 
-      - name: Set up SSH key for authentication
+      
+      - name: Build and Push identity-service
         run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.AWS_EC2_SSH_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+          IMAGE_URI=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/identity-service:latest
+          docker build -t $IMAGE_URI ./identity-service
+          docker push $IMAGE_URI
 
-      - name: SSH into EC2 and deploy
+      
+      - name: Build and Push post-service
+        run: |
+          IMAGE_URI=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/post-service:latest
+          docker build -t $IMAGE_URI ./post-service
+          docker push $IMAGE_URI
+
+      
+      - name: Build and Push media-service
+        run: |
+          IMAGE_URI=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/media-service:latest
+          docker build -t $IMAGE_URI ./media-service
+          docker push $IMAGE_URI
+
+      
+      - name: Build and Push search-service
+        run: |
+          IMAGE_URI=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/search-service:latest
+          docker build -t $IMAGE_URI ./search-service
+          docker push $IMAGE_URI
+
+      
+      - name: Deploy on EC2
         uses: appleboy/ssh-action@v0.1.5
         with:
           host: ${{ secrets.AWS_EC2_HOST }}
@@ -61,8 +71,9 @@ jobs:
           key: ${{ secrets.AWS_EC2_SSH_KEY }}
           port: 22
           script: |
-            IMAGE_URI=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/social-media-services:latest
-            aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
-            docker pull $IMAGE_URI
-            docker stop social-media || true && docker rm social-media || true
-            docker run -d --name social-media -p 3000:3000 $IMAGE_URI
+            cd ~/social-media-services  # make sure repo is cloned on EC2
+            git pull origin master
+            aws ecr get-login-password --region ${{ secrets.AWS_REGION }} \
+              | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
+            docker-compose pull
+            docker-compose up -d --remove-orphans
