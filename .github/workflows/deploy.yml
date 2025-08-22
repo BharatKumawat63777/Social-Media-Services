@@ -9,52 +9,51 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      
       - name: Checkout repository
         uses: actions/checkout@v2
 
-     
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+
       - name: Login to Amazon ECR
         run: |
           aws ecr get-login-password --region ${{ secrets.AWS_REGION }} \
           | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
 
-     
       - name: Build and Push api-gateway
         run: |
           IMAGE_URI=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/api-gateway:latest
           docker build -t $IMAGE_URI ./api-gateway
           docker push $IMAGE_URI
 
-      
       - name: Build and Push identity-service
         run: |
           IMAGE_URI=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/identity-service:latest
           docker build -t $IMAGE_URI ./identity-service
           docker push $IMAGE_URI
 
-      
       - name: Build and Push post-service
         run: |
           IMAGE_URI=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/post-service:latest
           docker build -t $IMAGE_URI ./post-service
           docker push $IMAGE_URI
 
-      
       - name: Build and Push media-service
         run: |
           IMAGE_URI=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/media-service:latest
           docker build -t $IMAGE_URI ./media-service
           docker push $IMAGE_URI
 
-      
       - name: Build and Push search-service
         run: |
           IMAGE_URI=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/search-service:latest
           docker build -t $IMAGE_URI ./search-service
           docker push $IMAGE_URI
 
-      
       - name: Deploy on EC2
         uses: appleboy/ssh-action@v0.1.5
         with:
