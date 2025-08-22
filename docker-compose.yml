@@ -6,85 +6,79 @@ services:
     image: ${AWS_ACCOUNT_ID}.dkr.ecr.eu-central-1.amazonaws.com/api-gateway:latest
     ports:
       - "3000:3000"
-    env_file: ./api-gateway/.env
     depends_on:
       - redis
       - rabbitmq
     environment:
       - REDIS_URL=redis://redis:6379
       - RABBITMQ_URL=amqp://rabbitmq:5672
-      - PORT= ${{ secrets.PORT0 }}
-      - NODE_ENV = ${{ secrets.NODE_ENV }}
-      - JWT_SECRET=${{ secrets.JWT_SECRET }}
-      - IDENTITY_SERVICE_URL = ${{ secrets.IDENTITY_SERVICE_URL }}
-      - POST_SERVICE_URL = ${{ secrets.POST_SERVICE_URL }}
-      - MEDIA_SERVICE_URL = ${{ secrets.MEDIA_SERVICE_URL }}
-      - SEARCH_SERVICE_URL = ${{ secrets.SEARCH_SERVICE_URL }}
+      - PORT=${PORT0}
+      - NODE_ENV=${NODE_ENV}
+      - JWT_SECRET=${JWT_SECRET}
+      - IDENTITY_SERVICE_URL=${IDENTITY_SERVICE_URL}
+      - POST_SERVICE_URL=${POST_SERVICE_URL}
+      - MEDIA_SERVICE_URL=${MEDIA_SERVICE_URL}
+      - SEARCH_SERVICE_URL=${SEARCH_SERVICE_URL}
 
   identity-service:
     build: ./identity-service
     image: ${AWS_ACCOUNT_ID}.dkr.ecr.eu-central-1.amazonaws.com/identity-service:latest
-    env_file: ./identity-service/.env
     depends_on:
       - redis
       - rabbitmq
     environment:
       - REDIS_URL=redis://redis:6379
       - RABBITMQ_URL=amqp://rabbitmq:5672
-      - PORT= ${{ secrets.PORT1 }}
-      - MONGODB_URI = ${{ secrets.MONGODB_URI }}
-      - NODE_ENV = ${{ secrets.NODE_ENV }}
-      - JWT_SECRET=${{ secrets.JWT_SECRET }}
+      - PORT=${PORT1}
+      - MONGODB_URI=${MONGODB_URI}
+      - NODE_ENV=${NODE_ENV}
+      - JWT_SECRET=${JWT_SECRET}
 
   post-service:
     build: ./post-service
     image: ${AWS_ACCOUNT_ID}.dkr.ecr.eu-central-1.amazonaws.com/post-service:latest
-    env_file: ./post-service/.env
     depends_on:
       - redis
       - rabbitmq
     environment:
       - REDIS_URL=redis://redis:6379
       - RABBITMQ_URL=amqp://rabbitmq:5672
-      - PORT= ${{ secrets.PORT2 }}
-      - MONGODB_URI = ${{ secrets.MONGODB_URI }}
-      - NODE_ENV = ${{ secrets.NODE_ENV }}
-      - JWT_SECRET=${{ secrets.JWT_SECRET }}
+      - PORT=${PORT2}
+      - MONGODB_URI=${MONGODB_URI}
+      - NODE_ENV=${NODE_ENV}
+      - JWT_SECRET=${JWT_SECRET}
 
   media-service:
     build: ./media-service
     image: ${AWS_ACCOUNT_ID}.dkr.ecr.eu-central-1.amazonaws.com/media-service:latest
-    env_file: ./media-service/.env
     depends_on:
       - redis
       - rabbitmq
     environment:
       - REDIS_URL=redis://redis:6379
       - RABBITMQ_URL=amqp://rabbitmq:5672
-      - PORT= ${{ secrets.PORT3 }}
-      - MONGODB_URI = ${{ secrets.MONGODB_URI }}
-      - NODE_ENV = ${{ secrets.NODE_ENV }}
-      - JWT_SECRET=${{ secrets.JWT_SECRET }}
-      - CLOUD_NAME =${{secrets.CLOUD_NAME}}
-      - CLOUD_API_KEY = ${{secrets.CLOUD_API_KEY}}
-      - CLOUD_API_SECRET= ${{secrets.CLOUD_API_SECRET}}
+      - PORT=${PORT3}
+      - MONGODB_URI=${MONGODB_URI}
+      - NODE_ENV=${NODE_ENV}
+      - JWT_SECRET=${JWT_SECRET}
+      - CLOUD_NAME=${CLOUD_NAME}
+      - CLOUD_API_KEY=${CLOUD_API_KEY}
+      - CLOUD_API_SECRET=${CLOUD_API_SECRET}
 
   search-service:
     build: ./search-service
     image: ${AWS_ACCOUNT_ID}.dkr.ecr.eu-central-1.amazonaws.com/search-service:latest
-    env_file: ./search-service/.env
     depends_on:
       - redis
       - rabbitmq
     environment:
       - REDIS_URL=redis://redis:6379
       - RABBITMQ_URL=amqp://rabbitmq:5672
-      - PORT= ${{ secrets.PORT4 }}
-      - MONGODB_URI = ${{ secrets.MONGODB_URI }}
-      - NODE_ENV = ${{ secrets.NODE_ENV }}
-      - JWT_SECRET=${{ secrets.JWT_SECRET }}
+      - PORT=${PORT4}
+      - MONGODB_URI=${MONGODB_URI}
+      - NODE_ENV=${NODE_ENV}
+      - JWT_SECRET=${JWT_SECRET}
 
- 
   redis:
     image: redis:alpine
     ports:
